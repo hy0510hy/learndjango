@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
  
-from . import view
- 
+from . import view,testdb
+#真JB菜 这里需要导模块没注意啊
+
 urlpatterns = [
     url(r'^hello$', view.hello),
+    url(r'^testdb$',testdb.testdb),
 ]
