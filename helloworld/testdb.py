@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
  
 from django.http import HttpResponse
- 
 from TestModel.models import Test
  
 # 数据库操作
