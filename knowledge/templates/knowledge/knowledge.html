@@ -11,7 +11,6 @@
   <meta http-equiv="Cache-Control" content="no-siteapp"/>
   <link rel="alternate icon" type="image/png" href="/static/i/favicon.png">
   <link rel="stylesheet" href="/static/css/amazeui.min.css"/>
-  <link rel="stylesheet" href="/static/tree/amazeui.tree.min.css"/>
   <style>
     .get {
       background: #1E5B94;
@@ -99,7 +98,7 @@
 <header class="am-topbar am-topbar-fixed-top">
   <div class="am-container">
     <h1 class="am-topbar-brand">
-      <a href="#">{{hello}}</a>
+      <a href="#">{{brand}}</a>
     </h1>
 
     <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only"
@@ -108,15 +107,15 @@
 
     <div class="am-collapse am-topbar-collapse" id="collapse-head">
       <ul class="am-nav am-nav-pills am-topbar-nav">
-        <li class="am-active"><a href="./landing">首页</a></li>
+        <li class="am-active"><a href="/landing">首页</a></li>
         <li class="am-dropdown" data-am-dropdown>
           <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
             项目 <span class="am-icon-caret-down"></span>
           </a>
           <ul class="am-dropdown-content">
-          <!--  <li class="am-dropdown-header">标题</li>   -->
-            <li><a href="./hello">1. Python3</a></li>
-            <li><a href="./polls/index">2. Django2</a></li>
+       <!--     <li class="am-dropdown-header">标题</li>   -->
+            <li><a href="/hello">1. Python3</a></li>
+            <li><a href="/polls/index">2. Django2</a></li>
           </ul>
         </li>
         <li><a href="#">更多</a></li>
@@ -133,39 +132,49 @@
   </div>
 </header>
 
-<div class="get">
-  <div class="am-g">
-    <div class="am-u-lg-3">
-    	这里为啥没有显示
-    	<ul class="am-tree" id="pjt">
-  <!-- 包含子级的条目模板 -->
-		  <li class="am-tree-branch am-hide" data-template="treebranch">
-		    <div class="am-tree-branch-header">
-		      <button class="am-tree-branch-name">
-		        <span class="am-tree-icon am-tree-icon-folder"></span>
-		        <span class="am-tree-label"></span>
-		      </button>
-		    </div>
-		    <ul class="am-tree-branch-children"></ul>
-		    <div class="am-tree-loader">Loading...</div>
-		  </li>
-
-		  <!-- 不包含子级的条目模板 -->
-		  <li class="am-tree-item am-hide" data-template="treeitem">
-		    <button class="am-tree-item-name">
-		      <span class="am-tree-icon am-tree-icon-item"></span>
-		      <span class="am-tree-label"></span>
-		    </button>
-		  </li>
-		</ul>
-
+<div class="about">
+  <div class="am-g am-container">
+    <div class="am-u-lg-8">
+      <label for="name" class="about-color">搜索</label>
+      <input id="search" type="text">
+      <button type="submit" class="am-btn am-btn-primary am-btn-sm"><i class="am-icon-check"></i>搜 索</button>
     </div>
-    <div class="am-u-lg-9">
-    	不对啊 
+    <div class="am-u-lg-4">
+      <button type="submit" onclick="location.href='/knowledge/addform/'" class="am-btn am-btn-primary am-btn-sm"><i class="am-icon-add"></i>新 增</button>
     </div>
   </div>
-</div>
+    <div class="am-g">
+      <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+      <div class="am-u-lg-4 am-u-md-4 am-u-sm-4">
 
+          <label for="name" class="about-color">标题</label>
+          {% if output %}
+            <ul>
+            {% for title in output %}
+              <li><a href="javacript:void(0)" title="{{title.title_date}}" onclick='Ajaxclick("{{title.title_text}},{{title.id}}")' >{{ title.title_text }}</a></li>
+            {% endfor %}
+            </ul>
+          {% else %}
+            <p>No content are available.</p>
+          {% endif %}
+
+        <hr class="am-article-divider am-show-sm-only">
+      </div>
+
+      <div  class="am-u-lg-8 am-u-md-8 am-u-sm-8">
+        <p id="la"></p>
+        <p id='p' ></p>
+        <p id='h' hidden="True" >11</p>
+        <pre id='c' >
+          这是主页哦，坚持PYTHON基础语法的学习。并且把每天学到的知识提交到本页。
+          学习使我快乐。<img src='/static/images/study1.jpg' ></img><img src='/static/images/study2.jpg' ></img>
+          学习使我快乐。<img src='/static/images/study3.jpg' ></img><img src='/static/images/study4.jpg' ></img>
+          学习使我快乐。<img src='/static/images/study5.jpg' ></img>
+
+        </pre>
+      </div>
+    </div>
+  </div>
 
 
 <footer class="footer">
@@ -182,51 +191,55 @@
 <script src="/static/js/jquery.min.js"></script>
 <!--<![endif]-->
 <script src="/static/js/amazeui.min.js"></script>
-<script src="/static/tree/amazeui.tree.min.js"></script>
-<script>
-	var data = [
-    {
-      title: '苹果公司',
-      type: 'folder',
-      products: [
-        {
-          title: 'iPhone',
-          type: 'item'
-        },
-        {
-          title: 'iMac',
-          type: 'item'
-        },
-        {
-          title: 'MacBook Pro',
-          type: 'item'
+<script type="text/javascript">
+
+  function addA(dir){
+    var l = dir.split("_");
+    var wl = '<a href="/knowledge/downfile?text='+dir+'"'+' rel="external nofollow" >'+l[l.length-1]+'</a>&nbsp; &nbsp; &nbsp; ';
+    return wl;
+  }
+
+  $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+  function Ajaxclick(text,keyid){
+    $.ajax({
+      url:"/knowledge/contentajax",
+      type:'POST',
+      tradition:true,
+      data:{'text':text,'keyid':keyid},
+      success: function(arg){
+        d = arg.split('&');
+        $("#c").html(d[0]);
+        $("#p").html(d[1]);
+        if(d[2]=="y"){
+          $("#d").show();
+        }else{
+          $("#d").hide();
         }
-      ]
-    },
-    {
-      title: '微软公司',
-      type: 'item'
-    },
-    {
-      title: 'GitHub',
-      type: 'item',
-      attr: {
-        icon: 'am-icon-github'
+        $("#la").empty();
+        var l = d[3].split("|");
+        for(var i=0;i<l.length;i++){
+          $("#la").append(addA(l[i]));
+        }
       }
-    }
-  	];
-    $('pjt').tree({
-    	dataSource: function(options, callback) {
-        // 模拟异步加载
-		    setTimeout(function() {
-		       	callback({data: options.products || data });
-		    }, 400);
-		},
-		multiSelect: false,
-		cacheItems: true,
-		folderSelect: false
-	}); 
+    });
+  }
 </script>
 
+<script type="text/javascript">
+
+  $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+  function Ajaxdownfile(){
+    title = $("#h").html();
+    $.ajax({
+      url:"/knowledge/downfile",
+      type:'POST',
+      tradition:true,
+      data:{'text':title},
+      success: function(arg){
+        alert(arg);
+      }
+    });
+  }
+</script>
 </body>
 </html>

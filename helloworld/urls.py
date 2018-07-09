@@ -21,7 +21,9 @@ from django.urls import path,include
 
 urlpatterns = [
     url(r'^hello$', view.hello),
+    url(r'^landing$',view.landing),
     url(r'^testdb$',testdb.testdb),
     url(r'^admin/',admin.site.urls),
     path('polls/',include('polls.urls')),
+    path('knowledge/',include('knowledge.urls')),
 ]

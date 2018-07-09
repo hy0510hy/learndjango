@@ -3,11 +3,14 @@
 def hello(request):
 	return HttpResponse("HelloWorld")'''
 from django.shortcuts import render
+from django.contrib.auth.models import User
 import django
 def hello(request):
+	data = "[{title: '苹果公司',type: 'folder',products: [{title: 'iPhone',type: 'item'},{title: 'iMac',type: 'item'},{title: 'MacBook Pro',type: 'item'}]},{ title: '微软公司',type: 'item'},{title: 'GitHub',type: 'item',attr: {icon: 'am-icon-github'}}]"
 	context={}
-	context["hello"] = "hello world"
+	context["hello"] = "welcome to hello page"
 	context["listnum"] = [1,2,3,4,5]
+	context["data"] = data
 	#切片操作
 	L = ["b0","b1","b2","b3","b4","b5","b6","b7","b8","b9"]
 	#0是从第一个元素开始，可以省略切到第7个元素 2是每2个元素娶一个
@@ -15,7 +18,10 @@ def hello(request):
 
 	return render(request,"hello.html",context)
 
-
+def landing(request):
+	context={}
+	context["brand"] = "hyWeb Home"
+	return render(request,"landing.html",context)
 '''
 func[1] 等价于 func2() 的执行结果，
 func2的功能是“仅在调用过程中print一次字符串`func2` ”，
@@ -24,7 +30,10 @@ func2的功能是“仅在调用过程中print一次字符串`func2` ”，
 故而第28行等价于  None ，仅此而已，你要啥输出？
 '''
 def func1(p):
-	print(p)
+	string = "".join("meeetasssootaaaa")
+	string1=list(set(string))
+	output = "".join(string1)
+	print(output)
 
 def func2():
 	print("func2")

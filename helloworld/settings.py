@@ -25,7 +25,7 @@ SECRET_KEY = '%76icfbw+e#ramzs#_dwxqk4y+ggjda3tn3@a1-in&w#lwt-+p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["192.168.31.29","127.0.0.1",]
 
 
 # Application definition
@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'TestModel.apps.TestmodelConfig',
-    'polls.apps.PollsConfig'
+    'polls.apps.PollsConfig',
+    'knowledge.apps.KnowledgeConfig',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATICFILES_DIRS = (
+    ('css', os.path.join(STATIC_ROOT, 'AmazeUI-2.7.2/assets/css')),
+    ('img', os.path.join(STATIC_ROOT, 'AmazeUI-2.7.2/assets/i/examples')),
+    ('js', os.path.join(STATIC_ROOT, 'AmazeUI-2.7.2/assets/js')),
+    ('fonts', os.path.join(STATIC_ROOT, 'AmazeUI-2.7.2/assets/fonts')),
+    ('tree',os.path.join(STATIC_ROOT,'tree/dist')),
+    ('images',os.path.join(STATIC_ROOT,'img')),
+    ('filesdir',os.path.join(STATIC_ROOT,'pythoncodeuploadfile')),
+   # ('plug', os.path.join(STATIC_ROOT, 'plug')),
+)

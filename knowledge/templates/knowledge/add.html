@@ -11,7 +11,6 @@
   <meta http-equiv="Cache-Control" content="no-siteapp"/>
   <link rel="alternate icon" type="image/png" href="/static/i/favicon.png">
   <link rel="stylesheet" href="/static/css/amazeui.min.css"/>
-  <link rel="stylesheet" href="/static/tree/amazeui.tree.min.css"/>
   <style>
     .get {
       background: #1E5B94;
@@ -99,7 +98,7 @@
 <header class="am-topbar am-topbar-fixed-top">
   <div class="am-container">
     <h1 class="am-topbar-brand">
-      <a href="#">{{hello}}</a>
+      <a href="#">{{brand}}</a>
     </h1>
 
     <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only"
@@ -108,15 +107,15 @@
 
     <div class="am-collapse am-topbar-collapse" id="collapse-head">
       <ul class="am-nav am-nav-pills am-topbar-nav">
-        <li class="am-active"><a href="./landing">首页</a></li>
+        <li class="am-active"><a href="/landing">首页</a></li>
         <li class="am-dropdown" data-am-dropdown>
           <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
             项目 <span class="am-icon-caret-down"></span>
           </a>
           <ul class="am-dropdown-content">
-          <!--  <li class="am-dropdown-header">标题</li>   -->
-            <li><a href="./hello">1. Python3</a></li>
-            <li><a href="./polls/index">2. Django2</a></li>
+       <!--     <li class="am-dropdown-header">标题</li>   -->
+            <li><a href="/hello">1. Python3</a></li>
+            <li><a href="/polls/index">2. Django2</a></li>
           </ul>
         </li>
         <li><a href="#">更多</a></li>
@@ -133,40 +132,26 @@
   </div>
 </header>
 
-<div class="get">
-  <div class="am-g">
-    <div class="am-u-lg-3">
-    	这里为啥没有显示
-    	<ul class="am-tree" id="pjt">
-  <!-- 包含子级的条目模板 -->
-		  <li class="am-tree-branch am-hide" data-template="treebranch">
-		    <div class="am-tree-branch-header">
-		      <button class="am-tree-branch-name">
-		        <span class="am-tree-icon am-tree-icon-folder"></span>
-		        <span class="am-tree-label"></span>
-		      </button>
-		    </div>
-		    <ul class="am-tree-branch-children"></ul>
-		    <div class="am-tree-loader">Loading...</div>
-		  </li>
+<div class="about">
+  <div class="am-g am-container">
+    <div class="am-u-lg-12">
 
-		  <!-- 不包含子级的条目模板 -->
-		  <li class="am-tree-item am-hide" data-template="treeitem">
-		    <button class="am-tree-item-name">
-		      <span class="am-tree-icon am-tree-icon-item"></span>
-		      <span class="am-tree-label"></span>
-		    </button>
-		  </li>
-		</ul>
-
-    </div>
-    <div class="am-u-lg-9">
-    	不对啊 
+          <form class="am-form" action="/knowledge/addform/" method="POST"  enctype="multipart/form-data" >
+          <!--  <label for="title" class="about-color">标题</label>
+            <input id="title" type="text" value="{{current_title}}">
+            <br/>
+            <label for="content" class="about-color">内容</label>
+            <textarea id="content" style="height:240px" value="{{current_content}}"></textarea>
+          -->
+            {% csrf_token %}
+            {{ form }}
+            <br/>
+            <button type="submit" class="am-btn am-btn-primary am-btn-sm"><i class="am-icon-button"></i> 提 交</button>
+          </form>
+          <hr class="am-article-divider am-show-sm-only">
     </div>
   </div>
 </div>
-
-
 
 <footer class="footer">
   <p>© 2018 <i class="am-icon-github am-icon-sm "></i> <a href="https://github.com/hy0510hy/learndjango" target="_blank">GitHub Page.</a> Code in this repository. </p>
@@ -182,51 +167,5 @@
 <script src="/static/js/jquery.min.js"></script>
 <!--<![endif]-->
 <script src="/static/js/amazeui.min.js"></script>
-<script src="/static/tree/amazeui.tree.min.js"></script>
-<script>
-	var data = [
-    {
-      title: '苹果公司',
-      type: 'folder',
-      products: [
-        {
-          title: 'iPhone',
-          type: 'item'
-        },
-        {
-          title: 'iMac',
-          type: 'item'
-        },
-        {
-          title: 'MacBook Pro',
-          type: 'item'
-        }
-      ]
-    },
-    {
-      title: '微软公司',
-      type: 'item'
-    },
-    {
-      title: 'GitHub',
-      type: 'item',
-      attr: {
-        icon: 'am-icon-github'
-      }
-    }
-  	];
-    $('pjt').tree({
-    	dataSource: function(options, callback) {
-        // 模拟异步加载
-		    setTimeout(function() {
-		       	callback({data: options.products || data });
-		    }, 400);
-		},
-		multiSelect: false,
-		cacheItems: true,
-		folderSelect: false
-	}); 
-</script>
-
 </body>
 </html>
